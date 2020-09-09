@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Importar estilo de bootstrap usando CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+    <title>Document</title>
+</head>
+<body>
+    <!-- Agregar un contenedor -->
+    <div id="app" class="container md">
+        <!-- Mostrar el titulo -->
+        <h3>{{ titulo }}</h3>
+        <!-- Campo de texto para ingresar tarea con padding = 3 -->
+        <!-- Asociar con el atributo nuevaTarea y guardar al presionar enter -->
+        <input type="text" class="form-control my-3" v-model="nuevaTarea"
+               v-on:keyup.enter="agregarTarea">
+        <!-- Boton agregar -->
+        <button class="btn btn-primary" @click="agregarTarea">Agregar</button>
+        <!-- Agregar un div con margin-top = 3 -->
+        <!-- Agregar v-for para mostrar listado de tareas y su indice -->
+        <div class="mt-3" v-for="(item, index) of tareas">
+            <!-- Adicionar clases mediante vue -->
+            <!-- Cambiar de color de fondo segun si la tarea fue finalizada o no -->
+            <div :class="['alert', item.estado ? 'alert-success' : 'alert-danger']">
+                <!-- Adicionar div alineado tareas y botones -->
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <!-- Mostrar el indice, la tarea y el estado -->
+                        {{ index }} - {{ item.nombre }} - {{ item.estado }} 
+                    </div>
+                    <div>
+                        <!-- Boton para cambiar el estado de una tarea finalizada -->
+                        <!-- Enviar como parametro el indice -->
+                        <button class="btn btn-success btn-sm" 
+                                @click="finalizarTarea(index)">OK</button>
+                        <!-- Boton para eliminar una tarea -->
+                        <!-- Enviar como parametro el indice -->
+                        <button class="btn btn-danger btn-sm"
+                                @click="eliminarTarea(index)">X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Libreria para desarrollo con Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
